@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import {Button,message} from 'antd';
 import {BrowserRouter,HashRouter,Switch,Route} from 'react-router-dom';//router是路由器 route是路由 switch切换
 import './App.css';
