@@ -1,25 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
+import {Button,message} from 'antd';
+import {BrowserRouter,HashRouter,Switch,Route} from 'react-router-dom';//router是路由器 route是路由 switch切换
 import './App.css';
+import Login from './pages/login/login';
+import Admin from './pages/admin/admin';
 
 function App() {
+  
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+      <Switch>
+        <Route path="/" component={Login} />
+        <Route path="/admin" component={Admin} />
+      </Switch>
+    </HashRouter>
   );
 }
 
