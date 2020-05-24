@@ -10,8 +10,8 @@ export const LoginForm = () => {
       console.log('Received values of form: ', values);
     };
     return (
-      <div>
-      <h1 id="h1">用户登录</h1>
+      
+      
       <Form
         name="normal_login"
         className="login-form"
@@ -20,6 +20,7 @@ export const LoginForm = () => {
         }}
         onFinish={onFinish}
       >
+          <h1 id="h1">用户登录</h1>
         <Form.Item
           name="username"
           rules={[
@@ -61,7 +62,7 @@ export const LoginForm = () => {
             Log in
           </Button>  
         </Form.Item>
-      </Form></div>
+      </Form>
     );
   };
 
