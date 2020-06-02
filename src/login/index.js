@@ -1,22 +1,32 @@
 import React,{Component} from 'react';
+import {ConnectedRouter} from "react-router-redux"
+import { history } from "config/store"
 import logo from '../images/logo192.png';
 import './index.css';
-import { Form, Input, Button, Checkbox } from 'antd';
+import {reqLogin} from '../api'
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 
-export const LoginForm = (props) => {
-    const onFinish = values => {
-      console.log('Received values of form: ', values);
-      const usr=values.username.trim();
-      const pwd=values.password.trim();
-      if(usr&&pwd) {
-        console.log(usr,pwd)
-        alert('发送ajax请求');
 
+export function LoginForm(props){
+      const onFinish = async function (values){
+          console.log('Received values of form: ', values);
+          const usr=values.username.trim();
+          const pwd=values.password.trim();
+        
+          //console.log(usr,pwd)
+          //alert('发送ajax请求');
+          const result = await reqLogin(usr,pwd)
+          if(result.status===0){
+                //跳转...
+            message.success('登陆成功，正在跳转...')
+            
+          }else{
+            message.error('登录失败:'+result.msg)
+            }        
       }
-    };
-    
+ 
     /*const handleSubmit=e=>{
       e.preventDefault();
       props.form.validateFields((err,values)=>{
@@ -73,8 +83,8 @@ export const LoginForm = (props) => {
               message: 'Please input your Password!',
             },
             {
-              min:6,
-              message:'密码长度不能小于6'
+              min:4,
+              message:'密码长度不能小于4'
             },
             {
               pattern:/^[a-zA-Z0-9_]+$/,
@@ -116,7 +126,7 @@ export default class Login extends Component{
                   <h1> 后台管理系统 </h1>
               </div>
               <div className="login-content"> 
-                  <LoginForm></LoginForm>
+                  <LoginForm ></LoginForm>
               </div>
             </div>
 
