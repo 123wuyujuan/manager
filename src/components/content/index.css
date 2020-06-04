@@ -1,0 +1,9 @@
+.mycontent-div {
+  height: 100%;
+  margin: 25px;
+}
+.mycontent-div .mycontent-main {
+  height: 100%;
+  background-color: white;
+  padding: 20px;
+}

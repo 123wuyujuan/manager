@@ -6,4 +6,5 @@ module.exports=override(
         libraryDirectory:'es', //源码文件夹中的es文件夹
         style:'css',//自动打包相关css
     }),
+    
 )

@@ -1,54 +1,63 @@
-import React,{Component} from 'react';
-import {ConnectedRouter} from "react-router-redux"
-import { history } from "config/store"
-import logo from '../images/logo192.png';
-import './index.css';
-import {reqLogin} from '../api'
+import React ,{Component}from 'react';
+import {withRouter, Redirect} from 'react-router-dom'
+
+import './login.css';
+import {reqLogin} from '../../api'
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import storageUtils from '../../utils/storageUtils.js'
+import memoryUtils from '../../utils/memoryUtils'
 
-
-
-export function LoginForm(props){
-      const onFinish = async function (values){
-          console.log('Received values of form: ', values);
-          const usr=values.username.trim();
-          const pwd=values.password.trim();
-        
-          //console.log(usr,pwd)
-          //alert('发送ajax请求');
-          const result = await reqLogin(usr,pwd)
-          if(result.status===0){
-                //跳转...
-            message.success('登陆成功，正在跳转...')
-            
-          }else{
-            message.error('登录失败:'+result.msg)
-            }        
+class LoginForm extends Component{
+  constructor(props){
+    super(props)
+    this.state={ 
+      loginSuccess:false,
+    }
+     
+    this.onFinish=this.onFinish.bind(this)
+  }
+    onFinish = async function (values){
+      console.log('Received values of form: ', values);
+      const usr=values.username.trim();
+      const pwd=values.password.trim();
+      
+      if(usr&&pwd){
+        const result = await reqLogin(usr,pwd)
+        if(result.status===0){
+          
+          //保存登录信息到localstorage
+          const user=result.data;
+          storageUtils.saveUser(user);
+          //保存登录信息到内存
+          memoryUtils.user=user;
+          //跳转...
+          message.success('登陆成功，正在跳转...',2)
+          this.props.history.replace('/admin')
+          
+        }else{
+          message.error('登录失败:'+result.msg)
+        }  
       }
- 
-    /*const handleSubmit=e=>{
-      e.preventDefault();
-      props.form.validateFields((err,values)=>{
-        if(!err){
-          console.log("Received value of form:",values);
-        }
-      });
-    };*/
-    return (
+            
+    }
+
+    render()
+    {
+      const user=memoryUtils.user;
+      if(user._id){
+        return (<Redirect to="/" />)
+      }else return (
       <Form
         name="normal_login"
         className="login-form"
         initialValues={{
           remember: true,
         }}
-        onFinish={onFinish}
-        
-      >
+        onFinish={this.onFinish}>
         <h1 id="h1">用户登录</h1>
         <Form.Item
-          name="username"
-          
+          name="username"     
           rules={[
             {
               required: true,
@@ -69,8 +78,6 @@ export function LoginForm(props){
               pattern:/^[a-zA-Z0-9_]+$/,
               message:'用户名应为字母、数字或下划线组成'
             } */
-
-
           ]}
         >
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
@@ -102,7 +109,6 @@ export function LoginForm(props){
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-  
             <a className="login-form-forgot" href="_blank">
             忘记密码
           </a>
@@ -113,8 +119,9 @@ export function LoginForm(props){
           </Button>  
         </Form.Item>
       </Form>
-    );
+    );}
   };
+//export default withRouter(LoginForm);
 
 export default class Login extends Component{
 
@@ -122,11 +129,11 @@ export default class Login extends Component{
         return(
             <div className="login">
               <div className="login-header">
-                  <img src={logo} alt="logo"/>
+                  <img  alt="logo"/>
                   <h1> 后台管理系统 </h1>
               </div>
               <div className="login-content"> 
-                  <LoginForm ></LoginForm>
+                  <LoginForm history={this.props.history}></LoginForm>
               </div>
             </div>
 
