@@ -33,6 +33,7 @@ class LoginForm extends Component{
           memoryUtils.user=user;
           //跳转...
           message.success('登陆成功，正在跳转...',2)
+          this.state({loginSuccess:true})
           this.props.history.replace('/admin')
           
         }else{
@@ -46,7 +47,7 @@ class LoginForm extends Component{
     {
       const user=memoryUtils.user;
       if(user._id){
-        return (<Redirect to="/" />)
+        return (<Redirect to="/" loginSuccess={this.state.loginSuccess} />)
       }else return (
       <Form
         name="normal_login"

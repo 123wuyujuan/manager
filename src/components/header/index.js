@@ -11,7 +11,7 @@ export default class Header extends Component{
                 <Header className='header' style={{backgroundColor:'white'}}>
                     header
                 </Header>
-            </div>
+            </div> 
         )
     }
 }

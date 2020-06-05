@@ -28,19 +28,20 @@ export default class Admin extends Component {
 
         return (
             <Layout style={{ height: '100%' }}>
-                <Sider style={{ color: 'white' }}>
-                    <LeftNav />
-                </Sider>
-                <Layout>
+                <LeftNav />  
+            <Layout>
                     <Header ></Header>
                     <MyContent >  
-                        <Switch>   
-                            <Route path='/home' component={Home}/>                
-                            <Route path='/myclass' component={MyClass} />
-                            <Route path='/mycharts' component={Charts} />
-                            <Route path='/myerp' component={Erp} />
-                            <Route path='/mytodo' component={Todo} />                         
-                            <Redirect to='/home' />
+                        <Switch> 
+                            <Route path='/mytodo/first' component={Todo} />    
+                            <Route path='/mytodo/follow' component={Todo} /> 
+                            <Route path='/mytodo/conversion' component={Todo} />         
+                            <Route path='/myclass/mylessons' component={MyClass} />
+                            <Route path='/myclass/stuinfo' component={MyClass} />
+                            <Route path='/myconversion/chart' component={Charts} />
+                            <Route path='/myerp/order' component={Erp} />
+                                                   
+                            <Redirect to='/mytodo'/>
                         </Switch>   
                     </MyContent>
                     <Footer style={{ textAlign: 'center', backgroundColor: 'rgba(0,0,0,0.2)' }}>重庆邮电大学 ©2020 Created by Wu</Footer>
