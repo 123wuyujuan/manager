@@ -39,8 +39,7 @@ export default class Admin extends Component {
                             <Route path='/myclass/mylessons' component={MyClass} />
                             <Route path='/myclass/stuinfo' component={MyClass} />
                             <Route path='/myconversion/chart' component={Charts} />
-                            <Route path='/myerp/order' component={Erp} />
-                                                   
+                            <Route path='/myerp/order' component={Erp} />                  
                             <Redirect to='/mytodo'/>
                         </Switch>   
                     </MyContent>

@@ -1,6 +1,7 @@
 .left-nav {
   color: white;
   height: 100%;
+  margin-bottom: 0px;
 }
 .left-nav .left-nav-logo {
   display: flex;

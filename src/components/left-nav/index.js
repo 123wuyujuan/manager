@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './index.css';
 import logo from '../../assets/images/logo.jpg'
 import { Layout, Menu } from 'antd';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined, MoneyCollectOutlined, AreaChartOutlined, NotificationOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
+import menuList from '../../config/menuconfig'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -13,6 +13,7 @@ export default class LeftNav extends Component {
         super(props);
         this.state = {
             collapsed: false,
+
         }
 
     }
@@ -20,18 +21,36 @@ export default class LeftNav extends Component {
         console.log(collapsed);
         this.setState({ collapsed });
     };
-
+    getMenu = menuList=>(
+        menuList.map((item)=>{
+            if (!item.children)
+                return(
+                    <Menu.Item key={item.key}>
+                        <Link to={item.link}>
+                            {item.icon}{item.title}
+                        </Link>
+                    </Menu.Item>
+                )
+            return (
+                <SubMenu key={item.key}  icon={item.icon} title={item.title}>
+                    {this.getMenu(item.children)}
+                </SubMenu>
+            )
+            
+        })
+    )
     render() {
-
         return (
             <div className="left-nav">
-                <Sider style={{ height: '100%' }} collapsible collapsed={this.state.collapsed} onCollapse={this.on}>
+                <Sider style={{ height: '100%' }} collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
                     <Link className="left-nav-logo" to='/home' >
                         <img className="left-nav-logo-img" src={logo} alt="logo" />
                         <h1 className="left-nav-logo-h1">班课系统</h1>
                     </Link>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <SubMenu key="1" mode="inline" icon={<UserOutlined />} title="我的待办">
+                        {
+                            this.getMenu(menuList)                          
+                        /* <SubMenu key="1"  icon={<UserOutlined />} title="我的待办">
                             <Menu.Item key="11"><Link to='/mytodo/first'>
                                 {<UserOutlined />}学员首触
                             </Link></Menu.Item>
@@ -62,7 +81,7 @@ export default class LeftNav extends Component {
                                     {<UserOutlined />}订单生成
                                 </Link></Menu.Item>
 
-                        </SubMenu>
+                        </SubMenu> */}
                     </Menu>
                 </Sider>
             </div>
