@@ -39,7 +39,24 @@ export default class LeftNav extends Component {
             
         })
     )
+
+    /**
+     * 第一次render()后执行一次
+     * 执行异步任务：发ajax请求，启动定时器
+     */
+    componentDidMount(){
+
+    }
+    /**
+     * 第一次render()前执行一次
+     * 为第一次render()做一些同步的准备工作
+     */
+    componentWillMount(){
+        this.menuNodes=this.getMenu(menuList);
+
+    }
     render() {
+        console.log('left render')
         return (
             <div className="left-nav">
                 <Sider style={{ height: '100%' }} collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
@@ -49,7 +66,7 @@ export default class LeftNav extends Component {
                     </Link>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         {
-                            this.getMenu(menuList)                          
+                            this.menuNodes                       
                         /* <SubMenu key="1"  icon={<UserOutlined />} title="我的待办">
                             <Menu.Item key="11"><Link to='/mytodo/first'>
                                 {<UserOutlined />}学员首触

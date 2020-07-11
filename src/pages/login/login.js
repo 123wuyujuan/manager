@@ -33,7 +33,7 @@ class LoginForm extends Component{
           memoryUtils.user=user;
           //跳转...
           message.success('登陆成功，正在跳转...',2)
-          this.state({loginSuccess:true})
+          this.setState({loginSuccess:true})
           this.props.history.replace('/admin')
           
         }else{

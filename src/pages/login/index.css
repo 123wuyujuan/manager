@@ -30,17 +30,18 @@ h1 {
   height: 100%;
   display: flex;
   align-items: center;
+  background-color: #19445e;
 }
 .login .login-content .login-form {
   width: 380px;
-  height: 320px;
+  height: 420px;
   padding-top: 20px;
   padding-right: 30px;
   padding-left: 30px;
   padding-bottom: 4px;
   position: relative;
   margin: auto;
-  background-color: floralwhite;
+  background-color: #128baf;
 }
 .login .login-content .login-form h1 {
   font-size: 30px;
